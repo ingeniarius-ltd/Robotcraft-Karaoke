@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Robotcraft Karaoke</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container" style="text-align: center">
+        <img src="/img/logo.png" style="width:50vw;" />
+        <h2>Karaoke Night</h2>
+        <h4>Show us your skills!</h4>
+        <form action="/entry" method="POST">
+            <div class="ui-widget" style="text-align: left">
+                <div class="form-group">
+                    <label for="song_names">Song:</label>
+                    <input class="form-control" type="text" id="song_names" name="song" />
+                </div>
+                <div class="form-group">
+                    <label for="singers">Singers:</label>
+                    <input class="form-control" type="text" id="singers" name="singers" />
+                </div>
+                <div style="text-align: center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    let last_name = ""
+    $("#song_names").on("change paste keyup", function() {
+        let text = $("#song_names").val();
+        if(last_name != text) {
+            last_name = text;
+            getSongs();
+        }
+    });
+    function getSongs() {
+        let text = $("#song_names").val();
+        if(text.length > 2) { 
+            $.get( "/songs/"+text, function( data ) {
+                console.log(data);
+                $('#song_names').autocomplete("option", { source: data });
+            });
+        }
+    }
+    $(document).ready(function() {
+        $( "#song_names" ).autocomplete({
+            source: []
+        });
+    });
+    </script> 
+</body>
+</html>

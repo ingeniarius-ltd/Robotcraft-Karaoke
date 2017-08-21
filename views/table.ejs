@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Robotcraft Karaoke</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container" style="text-align: center">
+        <img src="/img/logo.png" style="width:50vw;" />
+        <h2>Karaoke Night</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Song</th>
+                    <th>Singers</th>
+                    <th>Archive</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% entries.forEach(function(element) { %>
+                <tr>
+                    <td><%= element.song %></td>
+                    <td><%= element.singers %></td>
+                    <td><a href="/admin/archive/<%= element.id %>">Link</a></td>
+                </tr>
+                <% }, this); %>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
